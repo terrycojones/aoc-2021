@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import sys
-
 from collections import Counter
 from itertools import count
 
