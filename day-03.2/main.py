@@ -3,6 +3,7 @@
 import sys
 
 from collections import Counter
+from itertools import count
 
 
 def filter_(lines, offset, mostCommonOffset, tieBreak):
@@ -20,23 +21,17 @@ def filter_(lines, offset, mostCommonOffset, tieBreak):
 
 
 def getRating(lines, mostCommonOffset, tieBreak):
-    offset = 0
-
-    while len(lines) > 1:
+    for offset in count():
         lines = filter_(lines, offset, mostCommonOffset, tieBreak)
-        offset += 1
-
-    assert len(lines) == 1
-    return lines[0]
+        if len(lines) == 1:
+            return int(lines[0], 2)
 
 
 def main():
     lines = [line.rstrip() for line in sys.stdin]
-
     oxygen = getRating(lines, 0, '1')
     co2 = getRating(lines, 1, '0')
-
-    print(int(oxygen, 2) * int(co2, 2))
+    print(oxygen * co2)
 
 
 if __name__ == '__main__':
