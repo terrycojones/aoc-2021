@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 
-import sys
 from puzzle import readInput
 
 
@@ -11,9 +10,8 @@ def main():
         for board in boards:
             board.call(call)
             if board.bingo():
-                print(call * board.total())
-                sys.exit()
+                return call * board.total()
 
 
 if __name__ == '__main__':
-    main()
+    print(main())
