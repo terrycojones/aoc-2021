@@ -37,12 +37,7 @@ class Board:
         return False
 
     def total(self):
-        return sum(
-            sum(
-                0 if number is None else number
-                for number in row
-            ) for row in self.rows
-        )
+        return sum(sum(number or 0 for number in row) for row in self.rows)
 
 
 def readBoards(fp):
