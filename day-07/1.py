@@ -1,15 +1,5 @@
 #!/usr/bin/env python
 
-import sys
+from puzzle import main
 
-positions = list(map(int, sys.stdin.read().rstrip().split(',')))
-
-maxMoveCost = max(positions) - min(positions)
-minCost = len(positions) * maxMoveCost
-
-for p in range(max(positions) + 1):
-    cost = sum(abs(position - p) for position in positions)
-    if cost < minCost:
-        minCost = cost
-
-print(minCost)
+print(main(lambda n: n))
