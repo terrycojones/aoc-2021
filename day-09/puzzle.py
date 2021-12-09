@@ -1,4 +1,5 @@
 import sys
+from itertools import product
 
 
 class Grid:
@@ -15,9 +16,7 @@ class Grid:
             self.rows += 1
 
     def __iter__(self):
-        return ((row, col)
-                for row in range(self.rows)
-                for col in range(self.cols))
+        return product(range(self.rows), range(self.cols))
 
     def __getitem__(self, point):
         return self.grid[point[0]][point[1]]
