@@ -4,32 +4,29 @@ import sys
 class Grid:
     def __init__(self):
         self.grid = []
-        first = True
-        n = None
+        self.rows = self.cols = 0
         for line in sys.stdin:
             data = list(map(int, line.rstrip()))
-            if first:
-                n = len(data)
-                first = False
+            if self.rows == 0:
+                self.cols = len(data)
             else:
-                assert n == len(data)
+                assert self.cols == len(data)
             self.grid.append(data)
+            self.rows += 1
 
     def __iter__(self):
         return ((row, col)
-                for row in range(len(self.grid))
-                for col in range(len(self.grid[0])))
+                for row in range(self.rows)
+                for col in range(self.cols))
 
     def __getitem__(self, point):
         return self.grid[point[0]][point[1]]
 
     def neighbors(self, point):
         row, col = point
-        maxRow = len(self.grid)
-        maxCol = len(self.grid[0])
         for r, c in ((row, col - 1), (row, col + 1),
                      (row - 1, col), (row + 1, col)):
-            if 0 <= r < maxRow and 0 <= c < maxCol:
+            if 0 <= r < self.rows and 0 <= c < self.cols:
                 yield r, c
 
     def uphillNeighbors(self, point):
@@ -49,10 +46,8 @@ class Grid:
         while neighbours:
             point = neighbours.pop()
             seen.add(point)
-            for neighbor in self.uphillNeighbors(point):
-                if neighbor not in seen:
-                    neighbours.add(neighbor)
-
+            neighbours.update(n for n in self.uphillNeighbors(point)
+                              if n not in seen)
         return sum(self[point] < 9 for point in seen)
 
     def basinSizes(self):
