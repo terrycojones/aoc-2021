@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-from puzzle import main
+from puzzle import main1
 
 
 if __name__ == '__main__':
-    print(main(1))
+    print(main1())
