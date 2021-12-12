@@ -19,7 +19,6 @@ class _Path:
 
 
 class NoDuplicatePath(_Path):
-
     def okAsNext(self, vertex):
         return vertex not in self.smallsSeen
 
