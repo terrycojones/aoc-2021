@@ -1,4 +1,5 @@
 import sys
+from copy import copy
 from collections import defaultdict
 
 
@@ -23,7 +24,7 @@ def main(pathClass):
 
         for vertex in edges[path.last()]:
             if path.okAsNext(vertex):
-                new = path.copy()
+                new = copy(path)
                 new.extend(vertex)
                 if new.complete():
                     if new not in complete:
