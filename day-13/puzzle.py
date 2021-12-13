@@ -36,6 +36,13 @@ class Grid:
 
         return '\n'.join(''.join(row) for row in grid)
 
+    def hflip(self):
+        points = set()
+        for row, col in self.points:
+            points.add((row, self.cols - col))
+
+        return Grid(points)
+
     def foldLeft(self, n):
         points = set()
         for row, col in self.points:
@@ -43,7 +50,7 @@ class Grid:
 
         # Sanity check no over-folding.
         assert all([row >= 0 and col >= 0 and col < n for row, col in points])
-        return points
+        return Grid(points)
 
     def foldUp(self, n):
         points = set()
@@ -52,19 +59,7 @@ class Grid:
 
         # Sanity check no over-folding.
         assert all([row >= 0 and col >= 0 and row < n for row, col in points])
-        return points
+        return Grid(points)
 
     def fold(self, axis, n):
-        if axis == 'x':
-            points = self.foldLeft(n)
-        else:
-            points = self.foldUp(n)
-
-        return Grid(points)
-
-    def hflip(self):
-        points = set()
-        for row, col in self.points:
-            points.add((row, self.cols - col))
-
-        return Grid(points)
+        return self.foldLeft(n) if axis == 'x' else self.foldUp(n)
