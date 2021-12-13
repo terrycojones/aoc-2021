@@ -49,7 +49,7 @@ class Grid:
             points.add((row, col - n - 1) if col > n else (row, n - col - 1))
 
         # Sanity check no over-folding.
-        assert all([row >= 0 and col >= 0 and col < n for row, col in points])
+        assert all(row >= 0 and col >= 0 and col < n for row, col in points)
         return Grid(points)
 
     def foldUp(self, n):
@@ -58,7 +58,7 @@ class Grid:
             points.add((n - (row - n), col) if row > n else (row, col))
 
         # Sanity check no over-folding.
-        assert all([row >= 0 and col >= 0 and row < n for row, col in points])
+        assert all(row >= 0 and col >= 0 and row < n for row, col in points)
         return Grid(points)
 
     def fold(self, axis, n):
